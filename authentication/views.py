@@ -6,12 +6,25 @@ from .models import User
 from .renderers import UserJSONRenderer
 from .serializers import (LoginSerializer, RegistrationSerializer,
                           UserRetriveUpdateSerializer)
+from .permission import IsAdminUser, IsLoggedInUserOrAdmin, IsAdminOrAnonymousUser
 
 
 class RegistrationAPIView(generics.GenericAPIView):
-    permission_classes = (IsAdminUser,)
+    permission_classes = [IsAdminOrAnonymousUser]
     renderer_classes = (UserJSONRenderer,)
     serializer_class = RegistrationSerializer
+
+    # def get_permissions(self):
+    #     permission_classes = []
+    #     if self.request == 'create':
+    #         permission_classes = [IsAdminUser]
+    #     elif self.request == 'list':
+    #         permission_classes = [IsAdminOrAnonymousUser]
+    #     elif self.request == 'retrieve' or self.request == 'update' or self.request == 'partial_update':
+    #         permission_classes = [IsLoggedInUserOrAdmin]
+    #     elif self.request == 'destroy':
+    #         permission_classes = [IsLoggedInUserOrAdmin]
+    #     return [permission() for permission in permission_classes]
 
     def post(self, request):
         """

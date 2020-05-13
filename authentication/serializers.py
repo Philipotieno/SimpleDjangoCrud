@@ -10,7 +10,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         model = User
         # List all of the fields that could possibly be included in a request
         # or response, including fields specified explicitly above.
-        fields = ['id', 'first_name', 'last_name', 'surname', 'password', 'reg_number',]
+        fields = ['id', 'first_name', 'last_name', 'surname', 'password', 'reg_number', 'groups',]
 
     @classmethod
     def create(self, data):

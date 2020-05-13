@@ -99,7 +99,7 @@ REST_FRAMEWORK = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'assets2',
+        'NAME': 'a3',
         'USER': 'mitch',
         'PASSWORD': 'mufasa2019',
         'HOST': 'localhost',

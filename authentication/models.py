@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
-                                        PermissionsMixin)
+                                        PermissionsMixin, Group)
 from django.db import models
 from .choices import (SERVICE_CHOICES, UNIT_CHOICES, RANK_CHOICES)
 import jwt
@@ -63,6 +63,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     is_active = models.BooleanField(default=True)
 
+    groups = models.ForeignKey(Group, on_delete=models.CASCADE)
+
     # The `is_staff` flag is expected by Django to determine who can and cannot
     # log into the Django admin site. For most users, this flag will always be
     # falsed.
@@ -70,7 +72,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # The `USERNAME_FIELD` property tells us which field we will use to log in.
     # In this case, we want that to be the reg_number field.
     USERNAME_FIELD = 'reg_number'
-    REQUIRED_FIELDS = ['surname', 'first_name',
+    REQUIRED_FIELDS = ['groups_id', 'surname', 'first_name',
                        'last_name']
 
     # Tells Django that the UserManager class defined above should manage
