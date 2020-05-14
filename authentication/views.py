@@ -10,7 +10,7 @@ from .permission import IsAdminUser, IsLoggedInUserOrAdmin, IsAdminOrAnonymousUs
 
 
 class RegistrationAPIView(generics.GenericAPIView):
-    permission_classes = [IsAdminOrAnonymousUser]
+    # permission_classes = [IsAdminOrAnonymousUser]
     renderer_classes = (UserJSONRenderer,)
     serializer_class = RegistrationSerializer
 

@@ -54,7 +54,7 @@ class ListCreateHead(generics.ListCreateAPIView):
         serializer.save(institution=institution)
 
         return Response({
-            'message': 'institution added'
+            'message': 'head of institution added'
             }, status=status.HTTP_201_CREATED)
         # except Exception:
         #     return Response({
@@ -66,7 +66,6 @@ class ListCreateHead(generics.ListCreateAPIView):
         Get a list of all heads
         """
         heads = Head.objects.all().order_by('name')
-        # print("------------------------------------", commanders)
         serializer = self.serializer_class(
             heads,
             many=True
@@ -89,13 +88,13 @@ class ListCreateReport(generics.ListCreateAPIView):
         # content_data = request.data.get('camp',None)
 
         id = self.kwargs.get('id')
-        camp = Camp.objects.get(id=id)
+        institution = Institution.objects.get(id=id)
 
         # content_data['camp'] = instance.id
 
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(camp=camp)
+        serializer.save(institution=institution)
 
         return Response({
             'message': 'report added successfully',
