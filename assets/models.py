@@ -8,7 +8,7 @@ class Institution(models.Model):
         institution model fields
     """
     name = models.CharField(db_index=True, max_length=255, unique=True)
-    location = models.PointField(srid=4326, null=True, geography=True)
+    population = models.IntegerField(db_index=True, default=1)
 
     def __str__(self):
         return self.name
@@ -17,11 +17,11 @@ class Institution(models.Model):
 class Head(models.Model):
     institution = models.ForeignKey(
         Institution, on_delete=models.CASCADE, related_name="institution_head")
-    name = models.CharField(db_index=True, max_length=255, unique=False)
+    principle = models.CharField(db_index=True, max_length=255, unique=False)
     contact = models.IntegerField(db_index=True, unique=False)
 
     def __str__(self):
-        return self.name
+        return self.principle
 
 
 class Report(models.Model):

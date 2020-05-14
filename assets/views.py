@@ -65,7 +65,7 @@ class ListCreateHead(generics.ListCreateAPIView):
         """
         Get a list of all heads
         """
-        heads = Head.objects.all().order_by('name')
+        heads = Head.objects.all().order_by('principle')
         serializer = self.serializer_class(
             heads,
             many=True
