@@ -15,13 +15,12 @@ class Institution(models.Model):
 
 
 class Head(models.Model):
-    institution = models.ForeignKey(
-        Institution, on_delete=models.CASCADE, related_name="institution_head")
-    principle = models.CharField(db_index=True, max_length=255, unique=False)
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, related_name="institution_head")
+    principal = models.CharField(db_index=True, max_length=255, unique=False)
     contact = models.IntegerField(db_index=True, unique=False)
 
     def __str__(self):
-        return self.principle
+        return self.principal
 
 
 class Report(models.Model):
