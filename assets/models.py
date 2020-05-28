@@ -15,7 +15,7 @@ class Institution(models.Model):
 
 
 class Head(models.Model):
-    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, related_name="institution_head")
+    institution = models.OneToOneField(Institution, on_delete=models.CASCADE, related_name="institution_head")
     principal = models.CharField(db_index=True, max_length=255, unique=False)
     contact = models.IntegerField(db_index=True, unique=False)
 
@@ -27,7 +27,7 @@ class Report(models.Model):
 
     institution = models.ForeignKey(
         Institution, on_delete=models.CASCADE, related_name="institution_report")
-    name = models.CharField(db_index=True, max_length=255, unique=False)
+    report_name = models.CharField(db_index=True, max_length=255, unique=False)
     description = models.CharField(db_index=True, max_length=255, unique=False)
     report = models.FileField(
         blank=False, default='/media/Ramani_GEO.pdf', null=False)
@@ -35,4 +35,4 @@ class Report(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.report_name

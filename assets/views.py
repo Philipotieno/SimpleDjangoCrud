@@ -23,15 +23,18 @@ class ListCreateInstitutions(generics.ListCreateAPIView):
             'message': 'Institution added'
         }, status=status.HTTP_201_CREATED)
 
-    def get(self, request):
+    def get(self, request, id, **kwargs):
         """
-        Get a list of all instutution
+        Get one instutution
         """
-        institution = Institution.objects.all().order_by('name')
-        serializer = self.serializer_class(
-            institution,
-            many=True
-        )
+        try:
+            institution = Institution.objects.get(id=id)
+        except Exception:
+            return Response({'message': 'institution does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+        institution = Institution.objects.get(id=id)
+        serializer = self.serializer_class(institution)
+  
         response = ({
             "institution": serializer.data
         })
@@ -71,7 +74,7 @@ class ListCreateHead(generics.ListCreateAPIView):
             many=True
         )
         response = ({
-            "heads": serializer.data
+            "head": serializer.data
         })
         return Response(response)
 
@@ -105,7 +108,7 @@ class ListCreateReport(generics.ListCreateAPIView):
         """
         Get a list of all reports
         """
-        reports = Report.objects.all().order_by('name')
+        reports = Report.objects.all().order_by('report_name')
         serializer = self.serializer_class(
             reports,
             many=True
